@@ -262,15 +262,15 @@ type LightningWallet struct {
 	// is removed from limbo. Each reservation is tracked by a unique
 	// monotonically integer. All requests concerning the channel MUST
 	// carry a valid, active funding ID.
-	fundingLimbo  map[uint64]*ChannelReservation
-	limboMtx      sync.RWMutex
+	fundingLimbo map[uint64]*ChannelReservation
+	limboMtx     sync.RWMutex
 
 	// lockedOutPoints is a set of the currently locked outpoint. This
 	// information is kept in order to provide an easy way to unlock all
 	// the currently locked outpoints.
 	lockedOutPoints map[wire.OutPoint]struct{}
 
-	quit     chan struct{}
+	quit chan struct{}
 
 	wg sync.WaitGroup
 
@@ -1327,6 +1327,38 @@ func (l *LightningWallet) selectCoinsAndChange(feeRate SatPerVByte,
 			PkScript: changeScript,
 		}
 	}
+
+	return nil
+}
+
+func (l *LightningWallet) bumpFee() error {
+
+	l.coinSelectMtx.Lock()
+	defer l.coinSelectMtx.Unlock()
+
+	// inputs := GetPendingInputs()
+
+	// childTx.AddTxOut(changeoutput)
+
+	// validate desiredFeerate
+
+	// check each parent for a change output
+
+	// check that each parent is in limbo
+
+	// construct a txn taking as inputs each parent changeout, and as
+	// output the input values minus the amount necessary to achieve fee
+	// rate.
+
+	/*
+		childTx := wire.NewMsgTx(1)
+
+		for _, input := range inputs {
+			childTx.AddTxIn(input)
+		}
+	*/
+
+	// how to construct a txn?
 
 	return nil
 }

@@ -623,6 +623,17 @@ service Lightning {
             body: "*"
         };
     };
+
+    /** lncli: `bumpfee`
+    TODO(jamesob) doc
+    */
+    rpc BumpFee(BumpFeeRequest) returns (BumpFeeResponse) {
+        option (google.api.http) = {
+            post: "/v1/bumpfee"
+            body: "*"
+        };
+    };
+
 }
 
 message Transaction {
@@ -1825,4 +1836,13 @@ message ForwardingHistoryResponse {
 
    /// The index of the last time in the set of returned forwarding events. Can be used to seek further, pagination style.
    uint32 last_offset_index = 2 [json_name = "last_offset_index"];
+}
+
+message BumpFeeRequest {
+    repeated string outpoints = 1 [json_name = "outpoints"];
+    double total_effective_fee_rate = 2 [json_name = "total_effective_fee_rate"];
+}
+
+message BumpFeeResponse {
+    string child_txid = 1 [json_name = "txid"];
 }

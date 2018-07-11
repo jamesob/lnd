@@ -4002,3 +4002,7 @@ func (r *rpcServer) ForwardingHistory(ctx context.Context,
 
 	return resp, nil
 }
+
+func (r *rpcServer) BumpFee(ctx context.Context, req *lnrpc.BumpFeeRequest) (*lnrpc.BumpFeeResponse, error) {
+	return nil, nil
+}

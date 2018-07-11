@@ -49,6 +49,33 @@
         ]
       }
     },
+    "/v1/bumpfee": {
+      "post": {
+        "summary": "* lncli: `bumpfee`\nTODO(jamesob) doc",
+        "operationId": "BumpFee",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/lnrpcBumpFeeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/lnrpcBumpFeeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Lightning"
+        ]
+      }
+    },
     "/v1/changepassword": {
       "post": {
         "summary": "* lncli: `changepassword`\nChangePassword changes the password of the encrypted wallet. This will\nautomatically unlock the wallet database if successful.",
@@ -1060,6 +1087,29 @@
         "payment_request": {
           "type": "string",
           "description": "*\nA bare-bones invoice for a payment within the Lightning Network.  With the\ndetails of the invoice, the sender has all the data necessary to send a\npayment to the recipient."
+        }
+      }
+    },
+    "lnrpcBumpFeeRequest": {
+      "type": "object",
+      "properties": {
+        "outpoints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "total_effective_fee_rate": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "lnrpcBumpFeeResponse": {
+      "type": "object",
+      "properties": {
+        "child_txid": {
+          "type": "string"
         }
       }
     },
